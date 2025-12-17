@@ -40,7 +40,8 @@ merged_data <- cbind(subject_data, y_data, x_data)
 # إنشاء مجموعة بيانات مرتبة ثانية
 tidy_data <- merged_data %>%
   group_by(Subject, Activity) %>%
-  summarise(across(everything(), mean))
+  summarise(across(-c(Subject, Activity), mean), .groups = "drop")
+
 
 # حفظ البيانات المرتبة
-write.table(tidy_data, "tidy_data.txt", row.name = FALSE)
+write.table(tidy_data, "tidy_data.txt", row.names = FALSE)
